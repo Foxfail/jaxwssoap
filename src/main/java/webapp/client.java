@@ -13,15 +13,15 @@ public class client {
 
         //creating QName using targetNamespace and name
 //        QName qname = new QName("http://service.jaxws.journaldev.com/", "PersonServiceImplService");
-        QName qnameService = new QName("http://localhost:8888/", "TestServiceService");
-        QName qnamePort = new QName("http://localhost:8888/", "TestServicePort");
+        QName qnameService = new QName("http://localhost:8888/", "ServiceImplService");
+//        QName qnamePort = new QName("http://localhost:8888/", "ServiceImplPort");
 
         Service service = Service.create(wsdlURL, qnameService);
 
 //        service.addPort(qname2, SOAPBinding.SOAP12HTTP_BINDING, wsdlURL.toString());
 
-//        TestService ps = service.getPort(TestService.class);
-        ServiceInterface ps = service.getPort(qnamePort, ServiceInterface.class);
+//        ServiceImpl ps = service.getPort(ServiceImpl.class);
+        ServiceInterface ps = service.getPort(ServiceInterface.class);
 
         System.out.println("getSquare = " + ps.getSquare(3));
     }
