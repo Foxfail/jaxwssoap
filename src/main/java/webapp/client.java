@@ -1,35 +1,29 @@
 package webapp;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Arrays;
-
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
-import javax.xml.ws.soap.SOAPBinding;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class client {
 
     public static void main(String[] args) throws MalformedURLException {
-        URL wsdlURL = new URL("http://localhost:8888/testWS?wsdl");
+        URL wsdlURL = new URL("http://localhost:8888/?wsdl");
         //check above URL in browser, you should see WSDL file
 
         //creating QName using targetNamespace and name
 //        QName qname = new QName("http://service.jaxws.journaldev.com/", "PersonServiceImplService");
-        QName qname = new QName("http://localhost:8888/testWS", "TestServiceService");
+        QName qnameService = new QName("http://localhost:8888/", "TestServiceService");
+        QName qnamePort = new QName("http://localhost:8888/", "TestServicePort");
 
-        Service service = Service.create(wsdlURL, qname);
+        Service service = Service.create(wsdlURL, qnameService);
 
-        service.addPort(qname, SOAPBinding.SOAP12HTTP_BINDING, wsdlURL.toString());
-        //We need to pass interface and model beans to client
+//        service.addPort(qname2, SOAPBinding.SOAP12HTTP_BINDING, wsdlURL.toString());
+
 //        TestService ps = service.getPort(TestService.class);
-        ServiceInterface ps = service.getPort(qname, ServiceInterface.class);
+        ServiceInterface ps = service.getPort(qnamePort, ServiceInterface.class);
 
-
-
-        //add person
-        System.out.println("Add Person Status=" + ps.getSquare(3));
-
+        System.out.println("getSquare = " + ps.getSquare(3));
     }
 
 }
